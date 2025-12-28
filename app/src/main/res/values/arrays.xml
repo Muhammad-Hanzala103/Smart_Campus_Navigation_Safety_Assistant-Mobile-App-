@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="incident_categories">
+        <item>Theft</item>
+        <item>Vandalism</item>
+        <item>Assault</item>
+        <item>Medical</item>
+        <item>Suspicious Activity</item>
+        <item>Other</item>
+    </string-array>
+</resources>
