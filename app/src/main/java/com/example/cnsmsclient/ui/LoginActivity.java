@@ -28,10 +28,27 @@ public class LoginActivity extends AppCompatActivity {
 
         prefsManager = new PrefsManager(this);
 
-        // Set the base URL from preferences
         binding.serverUrlInput.setText(prefsManager.getBaseUrl());
+        binding.demoModeSwitch.setChecked(prefsManager.isDemoMode());
 
-        binding.loginButton.setOnClickListener(v -> loginUser());
+        binding.loginButton.setOnClickListener(v -> {
+            if (binding.demoModeSwitch.isChecked()) {
+                // Save demo mode state and a dummy token
+                prefsManager.setDemoMode(true);
+                prefsManager.saveToken("dummy_token");
+
+                // Go to MainActivity
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                // Proceed with real login
+                prefsManager.setDemoMode(false);
+                loginUser();
+            }
+        });
+
         binding.registerText.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
         binding.forgotPasswordButton.setOnClickListener(v -> startActivity(new Intent(this, ForgotPasswordActivity.class)));
     }
@@ -48,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
         prefsManager.saveBaseUrl(baseUrl);
 
-        // Re-create the ApiService with the new base URL
         apiService = ApiClient.getApiService(this);
 
         LoginRequest request = new LoginRequest(email, password);
@@ -58,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     prefsManager.saveToken(response.body().getToken());
-                    // In a real app, you would also save the user info
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

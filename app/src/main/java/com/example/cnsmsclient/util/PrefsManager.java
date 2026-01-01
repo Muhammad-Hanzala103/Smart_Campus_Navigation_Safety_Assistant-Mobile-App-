@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
-import com.example.cnsmsclient.network.ApiClient;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
@@ -14,6 +13,7 @@ public class PrefsManager {
     private static final String KEY_AUTH_TOKEN = "auth_token";
     private static final String KEY_BASE_URL = "base_url";
     private static final String KEY_DEMO_MODE = "demo_mode";
+    public static final String DEFAULT_BASE_URL = "http://192.168.0.109:5000/";
 
     private SharedPreferences sharedPreferences;
 
@@ -31,7 +31,6 @@ public class PrefsManager {
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
         } catch (GeneralSecurityException | IOException e) {
-            // Fallback to standard SharedPreferences in case of encryption failure
             sharedPreferences = context.getSharedPreferences(PREFS_FILE_NAME + "_unsecured", Context.MODE_PRIVATE);
         }
     }
@@ -49,7 +48,7 @@ public class PrefsManager {
     }
 
     public String getBaseUrl() {
-        return sharedPreferences.getString(KEY_BASE_URL, ApiClient.DEFAULT_BASE_URL);
+        return sharedPreferences.getString(KEY_BASE_URL, DEFAULT_BASE_URL);
     }
 
     public void setDemoMode(boolean enabled) {
