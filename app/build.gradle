@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    id 'com.android.application'
 }
 
 android {
@@ -32,32 +32,37 @@ android {
 }
 
 dependencies {
-    implementation libs.appcompat
-    implementation libs.material
-    implementation libs.constraintlayout
-    implementation libs.activity
-    implementation libs.fragment
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity:1.8.0'
+    implementation 'androidx.fragment:fragment:1.6.2'
 
     // Networking
-    implementation libs.retrofit
-    implementation libs.retrofit.converter.gson
-    implementation libs.okhttp.logging.interceptor
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
 
     // Image Loading
-    implementation libs.glide
-    annotationProcessor libs.glide.compiler
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
 
     // Security
-    implementation libs.security.crypto
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
     // UI
-    implementation libs.photoview
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     // QR Scanner
-    implementation libs.zxing.android.embedded
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
+    // Room DB
+    def room_version = "2.6.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // Testing
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.test.ext.junit
-    androidTestImplementation libs.espresso.core
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

@@ -26,9 +26,9 @@ public class IncidentsAdapter extends RecyclerView.Adapter<IncidentsAdapter.Inci
     @Override
     public void onBindViewHolder(@NonNull IncidentViewHolder holder, int position) {
         Incident incident = incidents.get(position);
-        holder.binding.categoryText.setText(incident.getCategory());
-        holder.binding.descriptionText.setText(incident.getDescription());
-        holder.binding.statusChip.setText(incident.getStatus());
+        holder.binding.categoryText.setText(incident.category);
+        holder.binding.descriptionText.setText(incident.description);
+        holder.binding.statusChip.setText(incident.status);
     }
 
     @Override

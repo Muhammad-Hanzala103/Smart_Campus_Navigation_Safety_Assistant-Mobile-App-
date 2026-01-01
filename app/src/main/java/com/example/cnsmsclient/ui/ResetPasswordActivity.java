@@ -7,9 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cnsmsclient.databinding.ActivityResetPasswordBinding;
+import com.example.cnsmsclient.model.ResetPasswordRequest;
+import com.example.cnsmsclient.model.ServerResponse;
 import com.example.cnsmsclient.network.ApiClient;
 import com.example.cnsmsclient.network.ApiService;
-import com.example.cnsmsclient.util.NetworkUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +28,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         binding = ActivityResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        apiService = ApiClient.getClient(this).create(ApiService.class);
+        apiService = ApiClient.getApiService(this);
         email = getIntent().getStringExtra("USER_EMAIL");
 
         binding.submitButton.setOnClickListener(v -> handleResetConfirm());
@@ -42,21 +43,21 @@ public class ResetPasswordActivity extends AppCompatActivity {
             return;
         }
 
-        apiService.confirmPasswordReset(email, token, newPassword).enqueue(new Callback<Void>() {
+        ResetPasswordRequest request = new ResetPasswordRequest(email, token, newPassword);
+        apiService.resetPassword(request).enqueue(new Callback<ServerResponse>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            public void onResponse(@NonNull Call<ServerResponse> call, @NonNull Response<ServerResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ResetPasswordActivity.this, "Password reset successfully!", Toast.LENGTH_LONG).show();
-                    finishAffinity(); // Close all activities in this task and go back to Login
+                    finishAffinity();
                     startActivity(getPackageManager().getLaunchIntentForPackage(getPackageName()));
                 } else {
-                    String error = NetworkUtils.getErrorMessage(response.errorBody());
-                    Toast.makeText(ResetPasswordActivity.this, "Reset failed: " + error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(ResetPasswordActivity.this, "Reset failed.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ServerResponse> call, @NonNull Throwable t) {
                 Toast.makeText(ResetPasswordActivity.this, "Network Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

@@ -20,26 +20,23 @@ import retrofit2.http.Part;
 
 public interface ApiService {
 
-    // --- Authentication ---
-    @POST("/api/auth/register")
+    @POST("api/auth/register")
     Call<ServerResponse> register(@Body RegisterRequest registerRequest);
 
-    @POST("/api/auth/login")
+    @POST("api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @POST("/api/auth/forgot")
+    @POST("api/auth/forgot")
     Call<ServerResponse> forgotPassword(@Body RegisterRequest.EmailOnly email);
 
-    @POST("/api/auth/reset")
+    @POST("api/auth/reset")
     Call<ServerResponse> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
-    // --- Map Data ---
-    @GET("/api/map")
+    @GET("api/map")
     Call<MapData> getMapData();
 
-    // --- Incidents ---
     @Multipart
-    @POST("/api/incidents")
+    @POST("api/incidents")
     Call<Incident> createIncident(
         @Part MultipartBody.Part image,
         @Part("description") RequestBody description,
@@ -48,13 +45,9 @@ public interface ApiService {
         @Part("y") RequestBody y
     );
 
-    @GET("/api/incidents")
+    @GET("api/incidents")
     Call<List<Incident>> getIncidents();
 
-    @POST("/api/incidents/analyze")
+    @POST("api/incidents/analyze")
     Call<AnalyzeResponse> analyzeIncident(@Body AnalyzeResponse.AnalyzeRequest analyzeRequest);
-
-    // --- Bookings (Stub) ---
-    // @GET("/api/bookings")
-    // Call<List<Booking>> getBookings();
 }

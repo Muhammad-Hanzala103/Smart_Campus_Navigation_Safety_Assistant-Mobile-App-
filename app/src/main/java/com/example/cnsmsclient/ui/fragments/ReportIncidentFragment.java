@@ -32,7 +32,7 @@ public class ReportIncidentFragment extends Fragment {
     private FragmentReportIncidentBinding binding;
     private ApiService apiService;
     private Uri selectedImageUri;
-    private int x, y; // Location coordinates
+    private int x, y;
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -58,7 +58,6 @@ public class ReportIncidentFragment extends Fragment {
         binding.selectImageButton.setOnClickListener(v -> openImagePicker());
         binding.submitButton.setOnClickListener(v -> submitIncident());
 
-        // Mock location picking
         binding.locationMap.setOnClickListener(v -> {
             x = (int) (Math.random() * 1000);
             y = (int) (Math.random() * 1000);
@@ -77,15 +76,11 @@ public class ReportIncidentFragment extends Fragment {
             Toast.makeText(getContext(), "Please select an image.", Toast.LENGTH_SHORT).show();
             return;
         }
-
         binding.progressBar.setVisibility(View.VISIBLE);
-
         try {
             File compressedFile = ImageUtils.compressImage(getContext(), selectedImageUri);
-
             RequestBody imagePart = RequestBody.create(compressedFile, MediaType.parse("image/jpeg"));
             MultipartBody.Part imageFile = MultipartBody.Part.createFormData("image", compressedFile.getName(), imagePart);
-
             RequestBody description = RequestBody.create(binding.descriptionInput.getText().toString(), MultipartBody.FORM);
             RequestBody category = RequestBody.create(binding.categoryInput.getText().toString(), MultipartBody.FORM);
             RequestBody xPart = RequestBody.create(String.valueOf(x), MultipartBody.FORM);
@@ -97,7 +92,6 @@ public class ReportIncidentFragment extends Fragment {
                     binding.progressBar.setVisibility(View.GONE);
                     if (response.isSuccessful()) {
                         Toast.makeText(getContext(), "Incident reported successfully!", Toast.LENGTH_LONG).show();
-                        // Clear form
                     } else {
                         Toast.makeText(getContext(), "Failed to report incident.", Toast.LENGTH_LONG).show();
                     }
@@ -109,7 +103,6 @@ public class ReportIncidentFragment extends Fragment {
                     Toast.makeText(getContext(), "Network error.", Toast.LENGTH_LONG).show();
                 }
             });
-
         } catch (IOException e) {
             binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "Failed to compress image.", Toast.LENGTH_LONG).show();

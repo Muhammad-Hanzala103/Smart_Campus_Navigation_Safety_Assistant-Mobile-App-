@@ -16,7 +16,9 @@ public interface IncidentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Incident> incidents);
 
-    @Query("SELECT * FROM incidents ORDER BY createdAt DESC")
+    // Ordering by the auto-generated primary key in descending order to get the newest first.
+    // This is more robust than relying on a `createdAt` column.
+    @Query("SELECT * FROM incidents ORDER BY id DESC")
     LiveData<List<Incident>> getAllIncidents();
 
     @Query("DELETE FROM incidents")

@@ -26,8 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        apiService = ApiClient.getApiService(this);
         prefsManager = new PrefsManager(this);
+
+        // Set the base URL from preferences
+        binding.serverUrlInput.setText(prefsManager.getBaseUrl());
 
         binding.loginButton.setOnClickListener(v -> loginUser());
         binding.registerText.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
@@ -35,13 +37,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
+        String baseUrl = binding.serverUrlInput.getText().toString().trim();
         String email = binding.emailInput.getText().toString().trim();
         String password = binding.passwordInput.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Email and password are required", Toast.LENGTH_SHORT).show();
+        if (baseUrl.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        prefsManager.saveBaseUrl(baseUrl);
+
+        // Re-create the ApiService with the new base URL
+        apiService = ApiClient.getApiService(this);
 
         LoginRequest request = new LoginRequest(email, password);
 
