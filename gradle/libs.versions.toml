@@ -17,6 +17,7 @@ glide = "4.15.1"
 gson = "2.10.1"
 security-crypto = "1.1.0-alpha06"
 zxing = "4.3.0"
+photoview = "2.3.0"
 
 [libraries]
 # AndroidX Core
@@ -37,6 +38,9 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 
 # Security
 security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "security-crypto" }
+
+# UI
+photoview = { group = "com.github.chrisbanes", name = "PhotoView", version.ref = "photoview" }
 
 # QR Scanner
 zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxing"}

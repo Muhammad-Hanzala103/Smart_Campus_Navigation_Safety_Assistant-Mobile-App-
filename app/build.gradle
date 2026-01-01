@@ -50,6 +50,9 @@ dependencies {
     // Security
     implementation libs.security.crypto
 
+    // UI
+    implementation libs.photoview
+
     // QR Scanner
     implementation libs.zxing.android.embedded
 

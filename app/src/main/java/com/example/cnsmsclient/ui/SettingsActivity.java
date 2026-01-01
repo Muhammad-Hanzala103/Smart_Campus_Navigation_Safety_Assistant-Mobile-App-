@@ -2,9 +2,7 @@ package com.example.cnsmsclient.ui;
 
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.cnsmsclient.databinding.ActivitySettingsBinding;
 import com.example.cnsmsclient.util.PrefsManager;
 
@@ -22,16 +20,21 @@ public class SettingsActivity extends AppCompatActivity {
         prefsManager = new PrefsManager(this);
 
         binding.baseUrlInput.setText(prefsManager.getBaseUrl());
+        binding.demoModeSwitch.setChecked(prefsManager.isDemoMode());
 
-        binding.saveButton.setOnClickListener(v -> {
-            String newUrl = binding.baseUrlInput.getText().toString().trim();
-            if (!newUrl.isEmpty() && newUrl.endsWith("/")) {
-                prefsManager.saveBaseUrl(newUrl);
-                Toast.makeText(this, "Base URL saved! Please restart the app.", Toast.LENGTH_LONG).show();
-                finish();
+        binding.saveUrlButton.setOnClickListener(v -> {
+            String url = binding.baseUrlInput.getText().toString();
+            if (!url.isEmpty() && url.endsWith("/")) {
+                prefsManager.saveBaseUrl(url);
+                Toast.makeText(this, "Base URL updated.", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Invalid URL. It must not be empty and must end with a /", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "URL must end with a forward slash (/)", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        binding.demoModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            prefsManager.setDemoMode(isChecked);
+            Toast.makeText(this, "Demo mode " + (isChecked ? "enabled" : "disabled"), Toast.LENGTH_SHORT).show();
         });
     }
 }

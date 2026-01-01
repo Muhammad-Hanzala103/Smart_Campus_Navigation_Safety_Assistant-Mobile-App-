@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampusNavigationSafetyAssistant"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
 
         <activity
             android:name=".ui.SplashActivity"
@@ -26,15 +27,16 @@
             </intent-filter>
         </activity>
 
-        <!-- All Activities are now registered -->
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.ForgotPasswordActivity" />
-        <activity android:name=".ui.ResetPasswordActivity" />
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.IncidentUploadActivity" />
-        <activity android:name=".ui.AnalyzeResultActivity" />
         <activity android:name=".ui.SettingsActivity" />
+        <!-- QR Scanner Activity -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
 
     </application>
 
