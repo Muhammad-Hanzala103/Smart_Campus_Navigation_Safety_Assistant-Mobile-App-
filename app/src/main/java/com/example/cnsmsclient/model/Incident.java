@@ -1,36 +1,25 @@
 package com.example.cnsmsclient.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "incidents")
 public class Incident {
-
-    @PrimaryKey(autoGenerate = true)
-    public int id;
-
-    @SerializedName("server_id")
-    public String serverId;
-
+    @SerializedName("id")
+    private int id;
     @SerializedName("description")
-    public String description;
-
+    private String description;
     @SerializedName("category")
-    public String category;
-
+    private String category;
     @SerializedName("status")
-    public String status;
+    private String status;
+    // Add other fields from your API as needed
 
-    @SerializedName("created_at")
-    public String createdAt;
+    // AI Analysis fields (can be null)
+    @SerializedName("severity")
+    private String severity;
 
-    public Incident(String serverId, String description, String category, String status, String createdAt) {
-        this.serverId = serverId;
-        this.description = description;
-        this.category = category;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
+    public int getId() { return id; }
+    public String getDescription() { return description; }
+    public String getCategory() { return category; }
+    public String getStatus() { return status; }
+    public String getSeverity() { return severity; }
 }

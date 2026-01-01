@@ -13,12 +13,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkModule {
 
-    // Using localhost because we are using `adb reverse` to forward the port over USB
-    private static final String BASE_URL = "http://127.0.0.1:5000/";
+    // Using the correct IP for your Wi-Fi network.
+    private static final String BASE_URL = "http://192.168.0.113:5000/";
 
     private static Retrofit retrofit = null;
 
-    private static Retrofit getClient(Context context) {
+    public static Retrofit getClient(Context context) {
         if (retrofit == null) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

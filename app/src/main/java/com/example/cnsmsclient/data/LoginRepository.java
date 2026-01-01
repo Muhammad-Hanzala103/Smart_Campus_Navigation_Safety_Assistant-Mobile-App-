@@ -3,6 +3,7 @@ package com.example.cnsmsclient.data;
 import android.app.Application;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.cnsmsclient.model.LoginRequest;
 import com.example.cnsmsclient.model.LoginResponse;
 import com.example.cnsmsclient.network.ApiService;
 import com.example.cnsmsclient.network.NetworkModule;
@@ -23,7 +24,10 @@ public class LoginRepository {
     }
 
     public void login(String email, String password, MutableLiveData<Boolean> success, MutableLiveData<String> error) {
-        apiService.login(email, password).enqueue(new Callback<LoginResponse>() {
+        // Create the request object that the ApiService now expects
+        LoginRequest loginRequest = new LoginRequest(email, password);
+
+        apiService.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
