@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- ==================== LIGHT THEME COLORS ==================== -->
     <color name="md_theme_light_primary">#006493</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#CAE6FF</color>
@@ -23,4 +24,94 @@
     <color name="md_theme_light_surfaceVariant">#DDE3EA</color>
     <color name="md_theme_light_onSurfaceVariant">#41484D</color>
     <color name="md_theme_light_outline">#71787E</color>
+    <color name="md_theme_light_inverseOnSurface">#F0F0F3</color>
+    <color name="md_theme_light_inverseSurface">#2E3133</color>
+    <color name="md_theme_light_inversePrimary">#8DCDFF</color>
+    <color name="md_theme_light_shadow">#000000</color>
+    <color name="md_theme_light_surfaceTint">#006493</color>
+    <color name="md_theme_light_outlineVariant">#C1C7CE</color>
+    <color name="md_theme_light_scrim">#000000</color>
+
+    <!-- ==================== DARK THEME COLORS ==================== -->
+    <color name="md_theme_dark_primary">#8DCDFF</color>
+    <color name="md_theme_dark_onPrimary">#00344F</color>
+    <color name="md_theme_dark_primaryContainer">#004B70</color>
+    <color name="md_theme_dark_onPrimaryContainer">#CAE6FF</color>
+    <color name="md_theme_dark_secondary">#B6C9D8</color>
+    <color name="md_theme_dark_onSecondary">#21323E</color>
+    <color name="md_theme_dark_secondaryContainer">#384956</color>
+    <color name="md_theme_dark_onSecondaryContainer">#D2E5F5</color>
+    <color name="md_theme_dark_tertiary">#C9BFEA</color>
+    <color name="md_theme_dark_onTertiary">#312B4A</color>
+    <color name="md_theme_dark_tertiaryContainer">#484161</color>
+    <color name="md_theme_dark_onTertiaryContainer">#E6DEFF</color>
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+    <color name="md_theme_dark_background">#1A1C1E</color>
+    <color name="md_theme_dark_onBackground">#E2E2E5</color>
+    <color name="md_theme_dark_surface">#1A1C1E</color>
+    <color name="md_theme_dark_onSurface">#E2E2E5</color>
+    <color name="md_theme_dark_surfaceVariant">#41484D</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C1C7CE</color>
+    <color name="md_theme_dark_outline">#8B9198</color>
+    <color name="md_theme_dark_inverseOnSurface">#1A1C1E</color>
+    <color name="md_theme_dark_inverseSurface">#E2E2E5</color>
+    <color name="md_theme_dark_inversePrimary">#006493</color>
+    <color name="md_theme_dark_shadow">#000000</color>
+    <color name="md_theme_dark_surfaceTint">#8DCDFF</color>
+    <color name="md_theme_dark_outlineVariant">#41484D</color>
+    <color name="md_theme_dark_scrim">#000000</color>
+
+    <!-- ==================== STATUS COLORS ==================== -->
+    <color name="status_open">#FF9800</color>
+    <color name="status_in_progress">#2196F3</color>
+    <color name="status_resolved">#4CAF50</color>
+    <color name="status_closed">#9E9E9E</color>
+    <color name="status_pending">#FFC107</color>
+    <color name="status_approved">#4CAF50</color>
+    <color name="status_rejected">#F44336</color>
+
+    <!-- ==================== SEVERITY COLORS ==================== -->
+    <color name="severity_high">#D32F2F</color>
+    <color name="severity_high_bg">#FFEBEE</color>
+    <color name="severity_medium">#F57C00</color>
+    <color name="severity_medium_bg">#FFF3E0</color>
+    <color name="severity_low">#388E3C</color>
+    <color name="severity_low_bg">#E8F5E9</color>
+
+    <!-- ==================== CATEGORY COLORS ==================== -->
+    <color name="category_security">#1565C0</color>
+    <color name="category_fire">#D84315</color>
+    <color name="category_medical">#C62828</color>
+    <color name="category_accident">#6A1B9A</color>
+    <color name="category_infrastructure">#00838F</color>
+    <color name="category_other">#546E7A</color>
+
+    <!-- ==================== EMERGENCY COLORS ==================== -->
+    <color name="sos_red">#D50000</color>
+    <color name="sos_red_dark">#9B0000</color>
+    <color name="emergency_pulse">#FF1744</color>
+
+    <!-- ==================== UI UTILITY COLORS ==================== -->
+    <color name="divider_color">#E0E0E0</color>
+    <color name="divider_color_dark">#424242</color>
+    <color name="shimmer_base">#E0E0E0</color>
+    <color name="shimmer_highlight">#F5F5F5</color>
+    <color name="overlay_dark">#80000000</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_background_dark">#2D2D2D</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_yellow">#FFC107</color>
+    <color name="info_blue">#2196F3</color>
+
+    <!-- ==================== GRADIENT COLORS ==================== -->
+    <color name="gradient_start">#006493</color>
+    <color name="gradient_end">#00838F</color>
+    <color name="gradient_emergency_start">#D50000</color>
+    <color name="gradient_emergency_end">#FF5722</color>
 </resources>
+
