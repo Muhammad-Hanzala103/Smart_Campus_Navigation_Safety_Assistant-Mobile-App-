@@ -2,9 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Internet and Network -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- Storage -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    
+    <!-- Camera -->
     <uses-permission android:name="android.permission.CAMERA" />
+    
+    <!-- Location for SOS and Map -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
+    <!-- Vibration for emergency alerts -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- Biometric -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +32,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampusNavigationSafetyAssistant"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
 
+        <!-- Splash Screen (Launcher) -->
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
@@ -27,11 +45,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.ForgotPasswordActivity" />
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.SettingsActivity" />
+        <!-- Authentication -->
+        <activity android:name=".ui.LoginActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.RegisterActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.ForgotPasswordActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.ResetPasswordActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        
+        <!-- Main App -->
+        <activity android:name=".ui.MainActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        
+        <!-- Settings & Profile -->
+        <activity android:name=".ui.SettingsActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.ChangePasswordActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.EditProfileActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        
         <!-- QR Scanner Activity -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
