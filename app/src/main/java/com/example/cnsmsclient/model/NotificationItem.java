@@ -53,6 +53,10 @@ public class NotificationItem {
         this.body = body;
     }
 
+    public String getMessage() {
+        return body;
+    }
+
     public String getType() {
         return type;
     }

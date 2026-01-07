@@ -22,4 +22,7 @@ public class Incident {
 
     @SerializedName("severity")
     public String severity;
+
+    @SerializedName("image_url")
+    public String imageUrl;
 }

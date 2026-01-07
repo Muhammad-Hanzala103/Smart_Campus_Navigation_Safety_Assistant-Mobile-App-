@@ -6,8 +6,13 @@ public class LoginResponse {
     @SerializedName("token")
     private String token;
     @SerializedName("user")
-    private User user;
+    private UserProfile user;
 
-    public String getToken() { return token; }
-    public User getUser() { return user; }
+    public String getToken() {
+        return token;
+    }
+
+    public UserProfile getUser() {
+        return user;
+    }
 }

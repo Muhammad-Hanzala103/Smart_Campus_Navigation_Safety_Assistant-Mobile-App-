@@ -111,15 +111,15 @@ public class ReportIncidentFragment extends Fragment {
         if (locationHelper.hasLocationPermission()) {
             locationHelper.getCurrentLocation(new LocationHelper.LocationListener() {
                 @Override
-                public void onLocationReceived(Location location) {
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
+                public void onLocationReceived(double lat, double lng) {
+                    latitude = lat;
+                    longitude = lng;
                     binding.locationStatus.setText(String.format("📍 %.4f, %.4f", latitude, longitude));
                     binding.locationStatus.setTextColor(requireContext().getColor(R.color.success_green));
                 }
 
                 @Override
-                public void onError(String error) {
+                public void onLocationError(String error) {
                     binding.locationStatus.setText("Location unavailable - tap to retry");
                     binding.locationStatus.setTextColor(requireContext().getColor(R.color.md_theme_light_error));
                 }

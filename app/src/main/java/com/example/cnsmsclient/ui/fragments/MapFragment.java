@@ -138,13 +138,13 @@ public class MapFragment extends Fragment {
         if (locationHelper.hasLocationPermission()) {
             locationHelper.getCurrentLocation(new LocationHelper.LocationListener() {
                 @Override
-                public void onLocationReceived(Location location) {
-                    GeoPoint myLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                public void onLocationReceived(double latitude, double longitude) {
+                    GeoPoint myLocation = new GeoPoint(latitude, longitude);
                     mapController.animateTo(myLocation);
                 }
 
                 @Override
-                public void onError(String error) {
+                public void onLocationError(String error) {
                     showError("Location unavailable");
                 }
             });

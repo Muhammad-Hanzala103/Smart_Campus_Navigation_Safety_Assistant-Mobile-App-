@@ -58,6 +58,13 @@ public class LocationHelper {
     }
 
     /**
+     * Request location permissions
+     */
+    public void requestPermission(androidx.fragment.app.FragmentActivity activity) {
+        ActivityCompat.requestPermissions(activity, getLocationPermissions(), 100);
+    }
+
+    /**
      * Get last known location (quick, but may be null or outdated)
      */
     @SuppressLint("MissingPermission")

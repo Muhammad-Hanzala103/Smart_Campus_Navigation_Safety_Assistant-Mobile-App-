@@ -98,15 +98,15 @@ public class SOSActivity extends AppCompatActivity {
         if (locationHelper.hasLocationPermission()) {
             locationHelper.getCurrentLocation(new LocationHelper.LocationListener() {
                 @Override
-                public void onLocationReceived(Location location) {
-                    currentLatitude = location.getLatitude();
-                    currentLongitude = location.getLongitude();
+                public void onLocationReceived(double latitude, double longitude) {
+                    currentLatitude = latitude;
+                    currentLongitude = longitude;
                     binding.locationStatus.setText("Location acquired ✓");
                     binding.locationStatus.setTextColor(getColor(R.color.success_green));
                 }
 
                 @Override
-                public void onError(String error) {
+                public void onLocationError(String error) {
                     binding.locationStatus.setText("Location unavailable");
                     binding.locationStatus.setTextColor(getColor(R.color.md_theme_light_error));
                 }

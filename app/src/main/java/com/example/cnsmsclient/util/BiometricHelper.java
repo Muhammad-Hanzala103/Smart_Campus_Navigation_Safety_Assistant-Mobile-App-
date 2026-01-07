@@ -17,6 +17,7 @@ import java.util.concurrent.Executor;
 public class BiometricHelper {
 
     private static final String TAG = "BiometricHelper";
+    private final Context context;
 
     public interface BiometricCallback {
         void onSuccess();
@@ -26,8 +27,19 @@ public class BiometricHelper {
         void onFailed();
     }
 
+    public BiometricHelper(Context context) {
+        this.context = context;
+    }
+
     /**
      * Check if biometric authentication is available on this device
+     */
+    public boolean isBiometricAvailable() {
+        return isBiometricAvailable(context);
+    }
+
+    /**
+     * Static version for utility usage
      */
     public static boolean isBiometricAvailable(Context context) {
         BiometricManager biometricManager = BiometricManager.from(context);
@@ -64,6 +76,21 @@ public class BiometricHelper {
 
     /**
      * Show biometric authentication prompt
+     */
+    public void showBiometricPrompt(
+            String title,
+            String subtitle,
+            BiometricCallback callback) {
+
+        if (context instanceof FragmentActivity) {
+            authenticate((FragmentActivity) context, title, subtitle, "Cancel", callback);
+        } else {
+            callback.onError("Context must be an Activity to show biometric prompt");
+        }
+    }
+
+    /**
+     * Show biometric authentication prompt (Static)
      */
     public static void authenticate(
             FragmentActivity activity,

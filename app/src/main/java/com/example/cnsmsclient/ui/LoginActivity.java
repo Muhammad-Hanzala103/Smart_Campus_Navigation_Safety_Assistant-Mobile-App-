@@ -190,8 +190,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onCanceled() {
-                        // User canceled, show login form
+                    public void onFailed() {
+                        // User canceled or failed, show login form
                         binding.loginCard.setVisibility(View.VISIBLE);
                     }
                 });

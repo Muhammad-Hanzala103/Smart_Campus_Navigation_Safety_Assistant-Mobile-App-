@@ -40,6 +40,10 @@ public class SOSRequest {
         this.isSilent = isSilent;
     }
 
+    public SOSRequest(double latitude, double longitude, String message, String alertType) {
+        this(latitude, longitude, message, alertType, false);
+    }
+
     // Getters and Setters
     public double getLatitude() {
         return latitude;
