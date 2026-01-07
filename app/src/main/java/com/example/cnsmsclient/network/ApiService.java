@@ -7,6 +7,7 @@ import com.example.cnsmsclient.model.Incident;
 import com.example.cnsmsclient.model.LoginRequest;
 import com.example.cnsmsclient.model.LoginResponse;
 import com.example.cnsmsclient.model.MapData;
+import com.example.cnsmsclient.model.MapNode;
 import com.example.cnsmsclient.model.NotificationItem;
 import com.example.cnsmsclient.model.RegisterRequest;
 import com.example.cnsmsclient.model.ResetPasswordRequest;
@@ -34,242 +35,246 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
-    // ==================== AUTHENTICATION ====================
+        // ==================== AUTHENTICATION ====================
 
-    @POST("api/auth/register")
-    Call<ServerResponse> register(@Body RegisterRequest registerRequest);
+        @POST("api/auth/register")
+        Call<ServerResponse> register(@Body RegisterRequest registerRequest);
 
-    @POST("api/auth/login")
-    Call<LoginResponse> login(@Body LoginRequest loginRequest);
+        @POST("api/auth/login")
+        Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @POST("api/auth/forgot")
-    Call<ServerResponse> forgotPassword(@Body RegisterRequest.EmailOnly email);
+        @POST("api/auth/forgot")
+        Call<ServerResponse> forgotPassword(@Body RegisterRequest.EmailOnly email);
 
-    @POST("api/auth/reset")
-    Call<ServerResponse> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
+        @POST("api/auth/reset")
+        Call<ServerResponse> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
-    @POST("api/auth/change-password")
-    Call<ServerResponse> changePassword(@Body ChangePasswordRequest request);
+        @POST("api/auth/change-password")
+        Call<ServerResponse> changePassword(@Body ChangePasswordRequest request);
 
-    @POST("api/auth/logout")
-    Call<ServerResponse> logout();
+        @POST("api/auth/logout")
+        Call<ServerResponse> logout();
 
-    @DELETE("api/auth/account")
-    Call<ServerResponse> deleteAccount();
+        @DELETE("api/auth/account")
+        Call<ServerResponse> deleteAccount();
 
-    // ==================== USER PROFILE ====================
+        // ==================== USER PROFILE ====================
 
-    @GET("api/profile")
-    Call<UserProfile> getProfile();
+        @GET("api/profile")
+        Call<UserProfile> getProfile();
 
-    @PUT("api/profile")
-    Call<ServerResponse> updateProfile(@Body UserProfile profile);
+        @PUT("api/profile")
+        Call<ServerResponse> updateProfile(@Body UserProfile profile);
 
-    @Multipart
-    @POST("api/profile/photo")
-    Call<ServerResponse> uploadProfilePhoto(@Part MultipartBody.Part photo);
+        @Multipart
+        @POST("api/profile/photo")
+        Call<ServerResponse> uploadProfilePhoto(@Part MultipartBody.Part photo);
 
-    @GET("api/profile/activity")
-    Call<List<Map<String, Object>>> getActivityLog();
+        @GET("api/profile/activity")
+        Call<List<Map<String, Object>>> getActivityLog();
 
-    // ==================== INCIDENTS ====================
+        // ==================== INCIDENTS ====================
 
-    @GET("api/incidents")
-    Call<List<Incident>> getIncidents();
+        @GET("api/incidents")
+        Call<List<Incident>> getIncidents();
 
-    @GET("api/incidents")
-    Call<List<Incident>> getIncidentsByStatus(@Query("status") String status);
+        @GET("api/incidents")
+        Call<List<Incident>> getIncidentsByStatus(@Query("status") String status);
 
-    @GET("api/incidents/my")
-    Call<List<Incident>> getMyIncidents();
+        @GET("api/incidents/my")
+        Call<List<Incident>> getMyIncidents();
 
-    @GET("api/incidents/{id}")
-    Call<Incident> getIncidentById(@Path("id") int id);
+        @GET("api/incidents/{id}")
+        Call<Incident> getIncidentById(@Path("id") int id);
 
-    @Multipart
-    @POST("api/incidents")
-    Call<Incident> createIncident(
-            @Part MultipartBody.Part image,
-            @Part("description") RequestBody description,
-            @Part("category") RequestBody category,
-            @Part("x") RequestBody x,
-            @Part("y") RequestBody y);
+        @Multipart
+        @POST("api/incidents")
+        Call<Incident> createIncident(
+                        @Part MultipartBody.Part image,
+                        @Part("description") RequestBody description,
+                        @Part("category") RequestBody category,
+                        @Part("x") RequestBody x,
+                        @Part("y") RequestBody y);
 
-    @Multipart
-    @POST("api/incidents/multi")
-    Call<Incident> createIncidentMultiMedia(
-            @Part List<MultipartBody.Part> images,
-            @Part MultipartBody.Part video,
-            @Part MultipartBody.Part audio,
-            @Part("description") RequestBody description,
-            @Part("category") RequestBody category,
-            @Part("x") RequestBody x,
-            @Part("y") RequestBody y,
-            @Part("severity") RequestBody severity,
-            @Part("is_anonymous") RequestBody isAnonymous);
+        @Multipart
+        @POST("api/incidents/multi")
+        Call<Incident> createIncidentMultiMedia(
+                        @Part List<MultipartBody.Part> images,
+                        @Part MultipartBody.Part video,
+                        @Part MultipartBody.Part audio,
+                        @Part("description") RequestBody description,
+                        @Part("category") RequestBody category,
+                        @Part("x") RequestBody x,
+                        @Part("y") RequestBody y,
+                        @Part("severity") RequestBody severity,
+                        @Part("is_anonymous") RequestBody isAnonymous);
 
-    @PUT("api/incidents/{id}/status")
-    Call<ServerResponse> updateIncidentStatus(
-            @Path("id") int id,
-            @Body Map<String, String> status);
+        @PUT("api/incidents/{id}/status")
+        Call<ServerResponse> updateIncidentStatus(
+                        @Path("id") int id,
+                        @Body Map<String, String> status);
 
-    @POST("api/incidents/{id}/comment")
-    Call<ServerResponse> addIncidentComment(
-            @Path("id") int id,
-            @Body Map<String, String> comment);
+        @POST("api/incidents/{id}/comment")
+        Call<ServerResponse> addIncidentComment(
+                        @Path("id") int id,
+                        @Body Map<String, String> comment);
 
-    @GET("api/incidents/{id}/comments")
-    Call<List<Map<String, Object>>> getIncidentComments(@Path("id") int id);
+        @GET("api/incidents/{id}/comments")
+        Call<List<Map<String, Object>>> getIncidentComments(@Path("id") int id);
 
-    @POST("api/incidents/analyze")
-    Call<AnalyzeResponse> analyzeIncident(@Body AnalyzeResponse.AnalyzeRequest analyzeRequest);
+        @POST("api/incidents/analyze")
+        Call<AnalyzeResponse> analyzeIncident(@Body AnalyzeResponse.AnalyzeRequest analyzeRequest);
 
-    @POST("api/incidents/draft")
-    Call<ServerResponse> saveDraftIncident(@Body Map<String, Object> draft);
+        @POST("api/incidents/draft")
+        Call<ServerResponse> saveDraftIncident(@Body Map<String, Object> draft);
 
-    @GET("api/incidents/drafts")
-    Call<List<Map<String, Object>>> getDraftIncidents();
+        @GET("api/incidents/drafts")
+        Call<List<Map<String, Object>>> getDraftIncidents();
 
-    // ==================== MAP & NAVIGATION ====================
+        // ==================== MAP & NAVIGATION ====================
 
-    @GET("api/map")
-    Call<MapData> getMapData();
+        @GET("api/map")
+        Call<MapData> getMapData();
 
-    @GET("api/map/nodes")
-    Call<List<MapData.MapNode>> getMapNodes();
+        @GET("api/map/nodes")
+        Call<List<MapNode>> getMapNodes();
 
-    @GET("api/map/nodes/{id}")
-    Call<MapData.MapNode> getNodeById(@Path("id") int id);
+        @GET("api/map/nodes/{id}")
+        Call<MapNode> getNodeById(@Path("id") int id);
 
-    @GET("api/map/search")
-    Call<List<MapData.MapNode>> searchLocations(@Query("q") String query);
+        @GET("api/map/search")
+        Call<List<MapNode>> searchLocations(@Query("q") String query);
 
-    @GET("api/map/nearby")
-    Call<List<MapData.MapNode>> getNearbyLocations(
-            @Query("lat") double latitude,
-            @Query("lng") double longitude,
-            @Query("type") String type,
-            @Query("radius") int radiusMeters);
+        @Multipart
+        @POST("api/incidents/analyze/image")
+        Call<Map<String, Object>> analyzeIncidentImage(@Part MultipartBody.Part image);
 
-    @GET("api/map/route")
-    Call<MapData.RouteResponse> getRoute(
-            @Query("from") int fromNodeId,
-            @Query("to") int toNodeId);
+        @GET("api/map/nearby")
+        Call<List<MapData.MapNode>> getNearbyLocations(
+                        @Query("lat") double latitude,
+                        @Query("lng") double longitude,
+                        @Query("type") String type,
+                        @Query("radius") int radiusMeters);
 
-    @GET("api/map/buildings/{id}/floors")
-    Call<List<Map<String, Object>>> getBuildingFloors(@Path("id") int buildingId);
+        @GET("api/map/route")
+        Call<MapData.RouteResponse> getRoute(
+                        @Query("from") int fromNodeId,
+                        @Query("to") int toNodeId);
 
-    @GET("api/map/parking/availability")
-    Call<Map<String, Object>> getParkingAvailability();
+        @GET("api/map/buildings/{id}/floors")
+        Call<List<Map<String, Object>>> getBuildingFloors(@Path("id") int buildingId);
 
-    // ==================== EMERGENCY ====================
+        @GET("api/map/parking/availability")
+        Call<Map<String, Object>> getParkingAvailability();
 
-    @POST("api/emergency/sos")
-    Call<ServerResponse> sendSOSAlert(@Body SOSRequest request);
+        // ==================== EMERGENCY ====================
 
-    @GET("api/emergency/contacts")
-    Call<EmergencyContact.EmergencyContactsResponse> getEmergencyContacts();
+        @POST("api/emergency/sos")
+        Call<ServerResponse> sendSOSAlert(@Body SOSRequest request);
 
-    @GET("api/emergency/evacuation-routes")
-    Call<List<Map<String, Object>>> getEvacuationRoutes(@Query("lat") double lat, @Query("lng") double lng);
+        @GET("api/emergency/contacts")
+        Call<EmergencyContact.EmergencyContactsResponse> getEmergencyContacts();
 
-    @GET("api/emergency/safe-zones")
-    Call<List<Map<String, Object>>> getSafeZones();
+        @GET("api/emergency/evacuation-routes")
+        Call<List<Map<String, Object>>> getEvacuationRoutes(@Query("lat") double lat, @Query("lng") double lng);
 
-    @PUT("api/emergency/sos/{id}/resolve")
-    Call<ServerResponse> resolveSOSAlert(@Path("id") int sosId);
+        @GET("api/emergency/safe-zones")
+        Call<List<Map<String, Object>>> getSafeZones();
 
-    @POST("api/emergency/share-location")
-    Call<ServerResponse> shareLocation(@Body Map<String, Object> locationData);
+        @PUT("api/emergency/sos/{id}/resolve")
+        Call<ServerResponse> resolveSOSAlert(@Path("id") int sosId);
 
-    // ==================== NOTIFICATIONS ====================
+        @POST("api/emergency/share-location")
+        Call<ServerResponse> shareLocation(@Body Map<String, Object> locationData);
 
-    @POST("api/notifications/register-token")
-    Call<ServerResponse> registerFCMToken(@Body Map<String, String> tokenData);
+        // ==================== NOTIFICATIONS ====================
 
-    @GET("api/notifications")
-    Call<List<NotificationItem>> getNotifications();
+        @POST("api/notifications/register-token")
+        Call<ServerResponse> registerFCMToken(@Body Map<String, String> tokenData);
 
-    @GET("api/notifications/unread-count")
-    Call<Map<String, Integer>> getUnreadNotificationCount();
+        @GET("api/notifications")
+        Call<List<NotificationItem>> getNotifications();
 
-    @PUT("api/notifications/{id}/read")
-    Call<ServerResponse> markNotificationRead(@Path("id") int id);
+        @GET("api/notifications/unread-count")
+        Call<Map<String, Integer>> getUnreadNotificationCount();
 
-    @PUT("api/notifications/read-all")
-    Call<ServerResponse> markAllNotificationsRead();
+        @PUT("api/notifications/{id}/read")
+        Call<ServerResponse> markNotificationRead(@Path("id") int id);
 
-    @DELETE("api/notifications/{id}")
-    Call<ServerResponse> deleteNotification(@Path("id") int id);
+        @PUT("api/notifications/read-all")
+        Call<ServerResponse> markAllNotificationsRead();
 
-    // ==================== ROOM BOOKING ====================
+        @DELETE("api/notifications/{id}")
+        Call<ServerResponse> deleteNotification(@Path("id") int id);
 
-    @GET("api/rooms")
-    Call<List<Map<String, Object>>> getRooms();
+        // ==================== ROOM BOOKING ====================
 
-    @GET("api/rooms/{id}")
-    Call<Map<String, Object>> getRoomById(@Path("id") int id);
+        @GET("api/rooms")
+        Call<List<Map<String, Object>>> getRooms();
 
-    @GET("api/rooms/available")
-    Call<List<Map<String, Object>>> getAvailableRooms(
-            @Query("date") String date,
-            @Query("start_time") String startTime,
-            @Query("end_time") String endTime,
-            @Query("capacity") int minCapacity);
+        @GET("api/rooms/{id}")
+        Call<Map<String, Object>> getRoomById(@Path("id") int id);
 
-    @GET("api/bookings")
-    Call<List<Map<String, Object>>> getBookings();
+        @GET("api/rooms/available")
+        Call<List<Map<String, Object>>> getAvailableRooms(
+                        @Query("date") String date,
+                        @Query("start_time") String startTime,
+                        @Query("end_time") String endTime,
+                        @Query("capacity") int minCapacity);
 
-    @GET("api/bookings/my")
-    Call<List<Map<String, Object>>> getMyBookings();
+        @GET("api/bookings")
+        Call<List<Map<String, Object>>> getBookings();
 
-    @POST("api/bookings")
-    Call<ServerResponse> createBooking(@Body Map<String, Object> bookingData);
+        @GET("api/bookings/my")
+        Call<List<Map<String, Object>>> getMyBookings();
 
-    @PUT("api/bookings/{id}")
-    Call<ServerResponse> updateBooking(@Path("id") int id, @Body Map<String, Object> bookingData);
+        @POST("api/bookings")
+        Call<ServerResponse> createBooking(@Body Map<String, Object> bookingData);
 
-    @DELETE("api/bookings/{id}")
-    Call<ServerResponse> cancelBooking(@Path("id") int id);
+        @PUT("api/bookings/{id}")
+        Call<ServerResponse> updateBooking(@Path("id") int id, @Body Map<String, Object> bookingData);
 
-    @POST("api/bookings/{id}/checkin")
-    Call<ServerResponse> checkInBooking(@Path("id") int id);
+        @DELETE("api/bookings/{id}")
+        Call<ServerResponse> cancelBooking(@Path("id") int id);
 
-    // ==================== ANNOUNCEMENTS ====================
+        @POST("api/bookings/{id}/checkin")
+        Call<ServerResponse> checkInBooking(@Path("id") int id);
 
-    @GET("api/announcements")
-    Call<List<Map<String, Object>>> getAnnouncements();
+        // ==================== ANNOUNCEMENTS ====================
 
-    @GET("api/announcements/latest")
-    Call<List<Map<String, Object>>> getLatestAnnouncements(@Query("limit") int limit);
+        @GET("api/announcements")
+        Call<List<Map<String, Object>>> getAnnouncements();
 
-    // ==================== ANALYTICS (Admin/Security) ====================
+        @GET("api/announcements/latest")
+        Call<List<Map<String, Object>>> getLatestAnnouncements(@Query("limit") int limit);
 
-    @GET("api/analytics/stats")
-    Call<Map<String, Object>> getDashboardStats();
+        // ==================== ANALYTICS (Admin/Security) ====================
 
-    @GET("api/analytics/incidents/trend")
-    Call<Map<String, Object>> getIncidentTrend(@Query("days") int days);
+        @GET("api/analytics/stats")
+        Call<Map<String, Object>> getDashboardStats();
 
-    @GET("api/analytics/heatmap")
-    Call<List<Map<String, Object>>> getHeatmapData();
+        @GET("api/analytics/incidents/trend")
+        Call<Map<String, Object>> getIncidentTrend(@Query("days") int days);
 
-    // ==================== CHAT ====================
+        @GET("api/analytics/heatmap")
+        Call<List<Map<String, Object>>> getHeatmapData();
 
-    @GET("api/chat/conversations")
-    Call<List<Map<String, Object>>> getConversations();
+        // ==================== CHAT ====================
 
-    @GET("api/chat/messages/{conversation_id}")
-    Call<List<Map<String, Object>>> getChatMessages(@Path("conversation_id") int conversationId);
+        @GET("api/chat/conversations")
+        Call<List<Map<String, Object>>> getConversations();
 
-    @POST("api/chat/send")
-    Call<ServerResponse> sendChatMessage(@Body Map<String, Object> message);
+        @GET("api/chat/messages/{conversation_id}")
+        Call<List<Map<String, Object>>> getChatMessages(@Path("conversation_id") int conversationId);
 
-    // ==================== SETTINGS ====================
+        @POST("api/chat/send")
+        Call<ServerResponse> sendChatMessage(@Body Map<String, Object> message);
 
-    @GET("api/settings/preferences")
-    Call<Map<String, Object>> getUserPreferences();
+        // ==================== SETTINGS ====================
 
-    @PUT("api/settings/preferences")
-    Call<ServerResponse> updateUserPreferences(@Body Map<String, Object> preferences);
+        @GET("api/settings/preferences")
+        Call<Map<String, Object>> getUserPreferences();
+
+        @PUT("api/settings/preferences")
+        Call<ServerResponse> updateUserPreferences(@Body Map<String, Object> preferences);
 }

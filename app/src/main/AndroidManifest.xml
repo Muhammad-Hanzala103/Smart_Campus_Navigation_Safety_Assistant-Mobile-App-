@@ -59,6 +59,13 @@
         <activity android:name=".ui.ChangePasswordActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity android:name=".ui.EditProfileActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         
+        <!-- Emergency & Features -->
+        <activity android:name=".ui.SOSActivity" 
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.NotificationsActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.RoomBookingActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        
         <!-- QR Scanner Activity -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
