@@ -46,4 +46,15 @@
         android:layout_marginTop="48dp"
         android:indeterminateTint="@android:color/white" />
 
+    <!-- Copyright -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/copyright_text"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:alpha="0.7" />
+
 </LinearLayout>
