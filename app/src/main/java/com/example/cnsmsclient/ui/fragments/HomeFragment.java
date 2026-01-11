@@ -138,25 +138,18 @@ public class HomeFragment extends Fragment {
                 .setOnClickListener(v -> startActivity(new Intent(requireContext(), AiSurveillanceActivity.class)));
 
         // Engagement Section
-        // SAFE MODE: Commented out to prevent crash on launch
-        /*
-         * binding.cardArNav
-         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
-         * ArNavigationActivity.class)));
-         * binding.cardChatbot.setOnClickListener(v -> startActivity(new
-         * Intent(requireContext(), ChatbotActivity.class)));
-         * binding.cardGamification
-         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
-         * GamificationActivity.class)));
-         * 
-         * // Admin & Faculty Section
-         * binding.cardFaculty
-         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
-         * FacultyDashboardActivity.class)));
-         * binding.cardAdmin
-         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
-         * AdminDashboardActivity.class)));
-         */
+        // Engagement Section
+        binding.cardArNav
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), ArNavigationActivity.class)));
+        binding.cardChatbot.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChatbotActivity.class)));
+        binding.cardGamification
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), GamificationActivity.class)));
+
+        // Admin & Faculty Section
+        binding.cardFaculty
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), FacultyDashboardActivity.class)));
+        binding.cardAdmin
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), AdminDashboardActivity.class)));
 
         // Swipe refresh
         binding.swipeRefresh.setOnRefreshListener(() -> {
