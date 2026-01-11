@@ -16,6 +16,19 @@ import com.example.cnsmsclient.network.ApiService;
 import com.example.cnsmsclient.ui.NotificationsActivity;
 import com.example.cnsmsclient.ui.RoomBookingActivity;
 import com.example.cnsmsclient.ui.SOSActivity;
+import com.example.cnsmsclient.ui.academic.AcademicDashboardActivity;
+import com.example.cnsmsclient.ui.financial.FinancialDashboardActivity;
+import com.example.cnsmsclient.ui.logistics.CafeteriaActivity;
+import com.example.cnsmsclient.ui.logistics.LibraryActivity;
+import com.example.cnsmsclient.ui.logistics.ShuttleTrackerActivity;
+import com.example.cnsmsclient.ui.engagement.ArNavigationActivity;
+import com.example.cnsmsclient.ui.engagement.ChatbotActivity;
+import com.example.cnsmsclient.ui.engagement.GamificationActivity;
+import com.example.cnsmsclient.ui.admin.FacultyDashboardActivity;
+import com.example.cnsmsclient.ui.admin.AdminDashboardActivity;
+import com.example.cnsmsclient.ui.safety.AiSurveillanceActivity;
+import com.example.cnsmsclient.ui.safety.CompanionWalkActivity;
+import com.example.cnsmsclient.ui.safety.LostFoundActivity;
 import com.example.cnsmsclient.util.PrefsManager;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
@@ -53,17 +66,23 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupGreeting() {
-        String name = prefsManager.getUserName();
-        String greeting = getGreeting();
-        binding.greetingText.setText(greeting + ", " + name + "!");
+        try {
+            String name = prefsManager.getUserName();
+            if (name == null)
+                name = "User";
+            String greeting = getGreeting();
+            binding.greetingText.setText(greeting + ", " + name + "!");
 
-        // Show role badge
-        String role = prefsManager.getUserRole();
-        if ("admin".equalsIgnoreCase(role) || "security".equalsIgnoreCase(role)) {
-            binding.roleBadge.setVisibility(View.VISIBLE);
-            binding.roleBadge.setText(role.toUpperCase());
-        } else {
-            binding.roleBadge.setVisibility(View.GONE);
+            // Show role badge
+            String role = prefsManager.getUserRole();
+            if (role != null && ("admin".equalsIgnoreCase(role) || "security".equalsIgnoreCase(role))) {
+                binding.roleBadge.setVisibility(View.VISIBLE);
+                binding.roleBadge.setText(role.toUpperCase());
+            } else {
+                binding.roleBadge.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -93,6 +112,52 @@ public class HomeFragment extends Fragment {
             startActivity(new Intent(requireContext(), RoomBookingActivity.class));
         });
 
+        // Academic Portal
+        binding.academicCard.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), AcademicDashboardActivity.class));
+        });
+
+        // Financial Portal
+        binding.financialCard.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), FinancialDashboardActivity.class));
+        });
+
+        // Campus Logistics
+        binding.cardCafeteria
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), CafeteriaActivity.class)));
+        binding.cardLibrary.setOnClickListener(v -> startActivity(new Intent(requireContext(), LibraryActivity.class)));
+        binding.cardShuttle
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), ShuttleTrackerActivity.class)));
+
+        // Safety Center
+        binding.cardCompanion
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), CompanionWalkActivity.class)));
+        binding.cardLostFound
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), LostFoundActivity.class)));
+        binding.cardAiCam
+                .setOnClickListener(v -> startActivity(new Intent(requireContext(), AiSurveillanceActivity.class)));
+
+        // Engagement Section
+        // SAFE MODE: Commented out to prevent crash on launch
+        /*
+         * binding.cardArNav
+         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
+         * ArNavigationActivity.class)));
+         * binding.cardChatbot.setOnClickListener(v -> startActivity(new
+         * Intent(requireContext(), ChatbotActivity.class)));
+         * binding.cardGamification
+         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
+         * GamificationActivity.class)));
+         * 
+         * // Admin & Faculty Section
+         * binding.cardFaculty
+         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
+         * FacultyDashboardActivity.class)));
+         * binding.cardAdmin
+         * .setOnClickListener(v -> startActivity(new Intent(requireContext(),
+         * AdminDashboardActivity.class)));
+         */
+
         // Swipe refresh
         binding.swipeRefresh.setOnRefreshListener(() -> {
             loadDashboardStats();
@@ -109,32 +174,38 @@ public class HomeFragment extends Fragment {
                 binding.swipeRefresh.setRefreshing(false);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Incident> incidents = response.body();
+                    try {
+                        List<Incident> incidents = response.body();
 
-                    // Calculate stats
-                    int total = incidents.size();
-                    int open = 0;
-                    int resolved = 0;
+                        // Calculate stats
+                        int total = incidents.size();
+                        int open = 0;
+                        int resolved = 0;
 
-                    for (Incident incident : incidents) {
-                        if ("open".equalsIgnoreCase(incident.status)) {
-                            open++;
-                        } else if ("resolved".equalsIgnoreCase(incident.status)) {
-                            resolved++;
+                        for (Incident incident : incidents) {
+                            if (incident != null && "open".equalsIgnoreCase(incident.status)) {
+                                open++;
+                            } else if (incident != null && "resolved".equalsIgnoreCase(incident.status)) {
+                                resolved++;
+                            }
                         }
-                    }
 
-                    // Update UI
-                    binding.totalIncidentsValue.setText(String.valueOf(total));
-                    binding.openIncidentsValue.setText(String.valueOf(open));
-                    binding.resolvedIncidentsValue.setText(String.valueOf(resolved));
+                        // Update UI
+                        if (binding != null) {
+                            binding.totalIncidentsValue.setText(String.valueOf(total));
+                            binding.openIncidentsValue.setText(String.valueOf(open));
+                            binding.resolvedIncidentsValue.setText(String.valueOf(resolved));
 
-                    // Show alert if many open incidents
-                    if (open > 5) {
-                        binding.alertCard.setVisibility(View.VISIBLE);
-                        binding.alertText.setText(open + " open incidents require attention");
-                    } else {
-                        binding.alertCard.setVisibility(View.GONE);
+                            // Show alert if many open incidents
+                            if (open > 5) {
+                                binding.alertCard.setVisibility(View.VISIBLE);
+                                binding.alertText.setText(open + " open incidents require attention");
+                            } else {
+                                binding.alertCard.setVisibility(View.GONE);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }

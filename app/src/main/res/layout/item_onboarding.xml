@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <ImageView
+        android:id="@+id/slideImage"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="Feature Image"
+        android:src="@drawable/ic_onboarding_map" />
+
+    <TextView
+        android:id="@+id/slideTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Smart Navigation"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/slideDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Navigate your campus with ease using our AR-powered map and directions."
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="16sp" />
+
+</LinearLayout>

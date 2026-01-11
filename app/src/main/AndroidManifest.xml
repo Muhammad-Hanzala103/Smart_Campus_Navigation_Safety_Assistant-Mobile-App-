@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -44,6 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.OnboardingActivity" android:theme="@style/Theme.Material3.Light.NoActionBar" />
+
 
         <!-- Authentication -->
         <activity android:name=".ui.LoginActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
@@ -66,6 +69,36 @@
         <activity android:name=".ui.NotificationsActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity android:name=".ui.RoomBookingActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         
+        <!-- Academic & LMS -->
+        <activity android:name=".ui.academic.AcademicDashboardActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.academic.AttendanceActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.academic.SeatingPlanActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+
+        <!-- Financial Management -->
+        <activity android:name=".ui.financial.FinancialDashboardActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.financial.FeeChalanActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.financial.WalletActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+
+        <!-- Campus Logistics -->
+        <activity android:name=".ui.logistics.CafeteriaActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.logistics.LibraryActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.logistics.ShuttleTrackerActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+
+        <!-- Advanced Safety -->
+        <activity android:name=".ui.safety.CompanionWalkActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.safety.LostFoundActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.safety.AiSurveillanceActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+
+        <!-- Engagement & Tech -->
+        <activity android:name=".ui.engagement.ArNavigationActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.engagement.ChatbotActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.engagement.GamificationActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        
+        <!-- Admin & Faculty -->
+        <activity android:name=".ui.admin.FacultyDashboardActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.admin.AdminDashboardActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.admin.ClassroomManagementActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+
         <!-- QR Scanner Activity -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"

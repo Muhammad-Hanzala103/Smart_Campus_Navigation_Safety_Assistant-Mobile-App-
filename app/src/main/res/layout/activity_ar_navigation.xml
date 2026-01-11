@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.engagement.ArNavigationActivity">
+
+    <!-- Camera Preview Placeholder -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Camera View (AR Mode)"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+    
+    <!-- AR Overlays -->
+    <ImageView
+        android:id="@+id/arrowOverlay"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_arrow_upward"
+        app:tint="#00E676"
+        android:layout_centerInParent="true"
+        android:alpha="0.8"/>
+        
+    <TextView
+        android:id="@+id/distanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50m"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#00E676"
+        android:layout_below="@id/arrowOverlay"
+        android:layout_centerHorizontal="true"
+        android:shadowColor="#000000"
+        android:shadowRadius="4"/>
+
+    <!-- Destination Selector -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardBackgroundColor="#CCFFFFFF">
+        <Spinner
+            android:id="@+id/destinationSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Bottom Info -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#DD202124">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:text="Navigating to:"
+                android:textColor="#AAAAAA"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/targetParams"
+                android:text="Select a destination"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

@@ -57,7 +57,7 @@ public class PrefsManager {
     private static final String KEY_ONBOARDING_COMPLETE = "onboarding_complete";
 
     // Default Values
-    public static final String DEFAULT_BASE_URL = "http://192.168.0.109:5000/";
+    public static final String DEFAULT_BASE_URL = "http://192.168.0.122:5000/";
     public static final int DEFAULT_SESSION_TIMEOUT = 30; // minutes
     public static final String DEFAULT_LANGUAGE = "en";
 
@@ -77,8 +77,15 @@ public class PrefsManager {
                     masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
-        } catch (GeneralSecurityException | IOException e) {
+        } catch (Exception e) {
+            // Fallback for ANY error (GeneralSecurity, IOException, RuntimeException)
             sharedPreferences = context.getSharedPreferences(PREFS_FILE_NAME + "_unsecured", Context.MODE_PRIVATE);
+        }
+
+        // FORCE FIX: Check if saved URL is the old dead IP, if so, reset to new default
+        String currentUrl = getBaseUrl();
+        if (currentUrl.contains("192.168.0.109")) {
+            saveBaseUrl(DEFAULT_BASE_URL);
         }
     }
 

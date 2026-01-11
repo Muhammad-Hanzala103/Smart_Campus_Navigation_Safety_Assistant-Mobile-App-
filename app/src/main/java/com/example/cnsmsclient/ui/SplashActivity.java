@@ -29,6 +29,34 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // GLOBAL CRASH HANDLER: If app crashes, clear data to fix "Loop"
+        // GLOBAL CRASH HANDLER: Log and Show Error
+        Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
+            e.printStackTrace();
+            new Handler(Looper.getMainLooper()).post(() -> {
+                try {
+                    android.widget.Toast.makeText(getApplicationContext(),
+                            "CRASH: " + e.getClass().getSimpleName() + ": " + e.getMessage(),
+                            android.widget.Toast.LENGTH_LONG).show();
+                } catch (Exception ex) {
+                }
+            });
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+            }
+
+            // Clear settings ONLY if it looks like data corruption
+            if (e instanceof com.google.gson.JsonSyntaxException || e instanceof NullPointerException) {
+                if (prefsManager != null)
+                    prefsManager.clearAll();
+            }
+
+            // Default handling (kill app)
+            System.exit(1);
+        });
+
         prefsManager = new PrefsManager(this);
 
         // Animate logo
@@ -63,8 +91,8 @@ public class SplashActivity extends AppCompatActivity {
             // Already logged in, go to main
             intent = new Intent(this, MainActivity.class);
         } else {
-            // Need to login
-            intent = new Intent(this, LoginActivity.class);
+            // Need to onboarding (was Login)
+            intent = new Intent(this, OnboardingActivity.class);
         }
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
