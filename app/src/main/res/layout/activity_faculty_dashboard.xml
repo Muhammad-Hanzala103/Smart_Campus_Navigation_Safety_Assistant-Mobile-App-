@@ -9,143 +9,26 @@
     tools:context=".ui.admin.FacultyDashboardActivity">
 
     <!-- Header -->
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="#3F51B5"
-        android:padding="24dp"
-        android:orientation="vertical">
+        android:elevation="4dp">
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Faculty Portal"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:text="Welcome, Dr. Hanzala"
-            android:textColor="#E0E0E0"
-            android:textSize="16sp"
-            android:layout_marginTop="4dp"/>
-    </LinearLayout>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+    </com.google.android.material.appbar.MaterialToolbar>
 
-    <ScrollView
+    <!-- Web Portal View -->
+    <WebView
+        android:id="@+id/facultyWebView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Course Card 1 -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
-                    
-                    <TextView
-                        android:text="CS-101: Intro to Computing"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"/>
-                    <TextView
-                        android:text="Section A (Morning)"
-                        android:textColor="#757575"
-                        android:layout_marginBottom="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <Button
-                            android:id="@+id/btnAttendance1"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="Attendance"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-                        <Space android:layout_width="8dp" android:layout_height="wrap_content"/>
-                        <Button
-                            android:id="@+id/btnMarks1"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="Enter Marks"
-                             android:textSize="12sp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Course Card 2 -->
-             <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
-                    
-                    <TextView
-                        android:text="SE-302: Software Const."
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"/>
-                    <TextView
-                        android:text="Section B (Evening)"
-                        android:textColor="#757575"
-                        android:layout_marginBottom="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <Button
-                            android:id="@+id/btnAttendance2"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="Attendance"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
-                        <Space android:layout_width="8dp" android:layout_height="wrap_content"/>
-                        <Button
-                            android:id="@+id/btnMarks2"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="Enter Marks"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-            
-            <!-- Quick Actions -->
-            <TextView
-                android:text="Quick Actions"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp"/>
-                
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnUpload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Upload Course Material"
-                app:icon="@drawable/ic_arrow_upward"
-                style="@style/Widget.MaterialComponents.Button.TextButton"/>
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

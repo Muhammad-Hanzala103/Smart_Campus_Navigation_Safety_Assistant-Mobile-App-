@@ -61,7 +61,8 @@ public class HomeFragment extends Fragment {
         apiService = ApiClient.getApiService(requireContext());
 
         setupGreeting();
-        setupQuickActions();
+        setupQuickActions(); // Set click listeners
+        updateRoleBasedUI(); // Hide/Show cards based on permissions
         loadDashboardStats();
     }
 
@@ -94,6 +95,72 @@ public class HomeFragment extends Fragment {
             return "Good Afternoon";
         else
             return "Good Evening";
+    }
+
+    private void updateRoleBasedUI() {
+        String role = prefsManager.getUserRole();
+        if (role == null)
+            role = "student"; // Default
+        role = role.toLowerCase();
+
+        // --- Defaults: Everyone gets Cafeteria, Library, Shuttle, Lost&Found, AR Nav
+        // ---
+        binding.cardCafeteria.setVisibility(View.VISIBLE);
+        binding.cardLibrary.setVisibility(View.VISIBLE);
+        binding.cardShuttle.setVisibility(View.VISIBLE);
+        binding.cardLostFound.setVisibility(View.VISIBLE);
+        binding.cardArNav.setVisibility(View.VISIBLE);
+
+        // --- Role Specific Visibility ---
+        if (role.equals("student")) {
+            // Student: Rewards, Companion, Chatbot
+            binding.cardGamification.setVisibility(View.VISIBLE);
+            binding.cardCompanion.setVisibility(View.VISIBLE);
+            binding.cardChatbot.setVisibility(View.VISIBLE);
+            binding.academicCard.setVisibility(View.VISIBLE); // Checking Grades
+            binding.financialCard.setVisibility(View.VISIBLE); // Paying Fees
+
+            // Hide Restricted (Remove from parent to fix Grid gaps)
+            removeCard(binding.cardAdmin);
+            removeCard(binding.cardFaculty);
+            removeCard(binding.cardAiCam); // No surveillance for students
+
+        } else if (role.equals("faculty")) {
+            // Faculty: Faculty Panel, Chatbot
+            binding.cardFaculty.setVisibility(View.VISIBLE); // CLASS MGMT
+            binding.cardChatbot.setVisibility(View.VISIBLE);
+
+            // Hide Restricted
+            removeCard(binding.cardAdmin);
+            removeCard(binding.cardGamification);
+            removeCard(binding.cardArNav); // Maybe irrelevant? Keep
+            removeCard(binding.cardAiCam);
+
+        } else if (role.equals("admin")) {
+            // Admin: Admin Panel, All Features
+            binding.cardAdmin.setVisibility(View.VISIBLE);
+            binding.cardAiCam.setVisibility(View.VISIBLE);
+
+            // Hide unrelated
+            removeCard(binding.cardGamification);
+
+        } else if (role.equals("security")) {
+            // Security: AI Cam, Companion, SOS
+            binding.cardAiCam.setVisibility(View.VISIBLE);
+            binding.cardCompanion.setVisibility(View.VISIBLE);
+
+            // Hide strict academic/admin
+            removeCard(binding.cardAdmin);
+            removeCard(binding.cardFaculty);
+            removeCard(binding.academicCard);
+            removeCard(binding.financialCard);
+        }
+    }
+
+    private void removeCard(View view) {
+        if (view != null && view.getParent() instanceof android.view.ViewGroup) {
+            ((android.view.ViewGroup) view.getParent()).removeView(view);
+        }
     }
 
     private void setupQuickActions() {
@@ -167,51 +234,68 @@ public class HomeFragment extends Fragment {
                 binding.swipeRefresh.setRefreshing(false);
 
                 if (response.isSuccessful() && response.body() != null) {
+                    List<Incident> incidents = response.body();
+
+                    // CACHE DATA (Offline Mode)
                     try {
-                        List<Incident> incidents = response.body();
-
-                        // Calculate stats
-                        int total = incidents.size();
-                        int open = 0;
-                        int resolved = 0;
-
-                        for (Incident incident : incidents) {
-                            if (incident != null && "open".equalsIgnoreCase(incident.status)) {
-                                open++;
-                            } else if (incident != null && "resolved".equalsIgnoreCase(incident.status)) {
-                                resolved++;
-                            }
-                        }
-
-                        // Update UI
-                        if (binding != null) {
-                            binding.totalIncidentsValue.setText(String.valueOf(total));
-                            binding.openIncidentsValue.setText(String.valueOf(open));
-                            binding.resolvedIncidentsValue.setText(String.valueOf(resolved));
-
-                            // Show alert if many open incidents
-                            if (open > 5) {
-                                binding.alertCard.setVisibility(View.VISIBLE);
-                                binding.alertText.setText(open + " open incidents require attention");
-                            } else {
-                                binding.alertCard.setVisibility(View.GONE);
-                            }
-                        }
+                        prefsManager.saveCache("cached_incidents", incidents.toArray(new Incident[0]));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+                    updateStatsUI(incidents);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Incident>> call, Throwable t) {
                 binding.swipeRefresh.setRefreshing(false);
-                // Show demo data
-                binding.totalIncidentsValue.setText("--");
-                binding.openIncidentsValue.setText("--");
-                binding.resolvedIncidentsValue.setText("--");
+
+                // TRY LOADING FROM CACHE
+                Incident[] cachedArray = prefsManager.getCache("cached_incidents", Incident[].class);
+                if (cachedArray != null && cachedArray.length > 0) {
+                    List<Incident> cachedList = java.util.Arrays.asList(cachedArray);
+                    updateStatsUI(cachedList);
+                    Snackbar.make(binding.getRoot(), "Offline Mode: Showing cached data", Snackbar.LENGTH_LONG).show();
+                } else {
+                    // Show error placeholder
+                    binding.totalIncidentsValue.setText("--");
+                    binding.openIncidentsValue.setText("--");
+                    binding.resolvedIncidentsValue.setText("--");
+                }
             }
         });
+    }
+
+    private void updateStatsUI(List<Incident> incidents) {
+        try {
+            int total = incidents.size();
+            int open = 0;
+            int resolved = 0;
+
+            for (Incident incident : incidents) {
+                if (incident != null && "open".equalsIgnoreCase(incident.status)) {
+                    open++;
+                } else if (incident != null && "resolved".equalsIgnoreCase(incident.status)) {
+                    resolved++;
+                }
+            }
+
+            if (binding != null) {
+                binding.totalIncidentsValue.setText(String.valueOf(total));
+                binding.openIncidentsValue.setText(String.valueOf(open));
+                binding.resolvedIncidentsValue.setText(String.valueOf(resolved));
+
+                if (open > 5) {
+                    binding.alertCard.setVisibility(View.VISIBLE);
+                    binding.alertText.setText(open + " open incidents require attention");
+                } else {
+                    binding.alertCard.setVisibility(View.GONE);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -207,6 +207,11 @@ public interface ApiService {
         @DELETE("api/notifications/{id}")
         Call<ServerResponse> deleteNotification(@Path("id") int id);
 
+        // ==================== SHUTTLE & TRANSPORT ====================
+
+        @GET("api/shuttle/live")
+        Call<List<Map<String, Object>>> getShuttles();
+
         // ==================== ROOM BOOKING ====================
 
         @GET("api/rooms")

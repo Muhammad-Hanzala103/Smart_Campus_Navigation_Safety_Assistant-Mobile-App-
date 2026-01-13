@@ -32,19 +32,19 @@ public class AcademicDashboardActivity extends AppCompatActivity {
             }
         });
 
-        // Results Card (Placeholder)
+        // Results Card
         findViewById(R.id.cardResults).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AcademicDashboardActivity.this, "Feature coming soon!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AcademicDashboardActivity.this, AcademicResultsActivity.class));
             }
         });
 
-        // Course Reg Card (Placeholder)
+        // Course Reg Card (Now Enrolled Courses)
         findViewById(R.id.cardCourseReg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AcademicDashboardActivity.this, "Feature coming soon!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AcademicDashboardActivity.this, CoursesActivity.class));
             }
         });
     }

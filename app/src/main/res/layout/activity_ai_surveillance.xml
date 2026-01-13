@@ -6,19 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.safety.AiSurveillanceActivity">
 
-    <!-- Camera Preview Placeholder -->
-    <FrameLayout
+    <!-- Camera Preview -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Camera Feed Live"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"/>
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
     <!-- AI Overlay -->
     <RelativeLayout
@@ -35,6 +27,7 @@
             android:alpha="0.3"/> <!-- Using gradient as placeholder border since we lack shape drawable here easily without defining one -->
 
         <TextView
+            android:id="@+id/tvDetectionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PERSON DETECTED (98%)"

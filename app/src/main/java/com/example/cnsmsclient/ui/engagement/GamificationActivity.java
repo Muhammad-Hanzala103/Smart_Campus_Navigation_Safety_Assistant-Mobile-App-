@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,19 @@ public class GamificationActivity extends AppCompatActivity {
         qrImage = findViewById(R.id.qrImage);
 
         findViewById(R.id.btnTicket).setOnClickListener(v -> generateQrCode());
+
+        // --- Scratch Card Logic ---
+        View scratchOverlay = findViewById(R.id.scratchOverlay);
+        TextView tvPoints = findViewById(R.id.tvPoints);
+
+        scratchOverlay.setOnClickListener(v -> {
+            // Animate fade out
+            v.animate().alpha(0f).setDuration(1000).withEndAction(() -> {
+                v.setVisibility(View.GONE);
+                Toast.makeText(this, "You won 500 Bonus Points!", Toast.LENGTH_LONG).show();
+                tvPoints.setText("1,750"); // Mock update
+            }).start();
+        });
     }
 
     private void generateQrCode() {

@@ -50,12 +50,20 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/userNameText"
+                            android:id="@+id/roleBadge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="User"
-                            android:textColor="#E0E0E0"
-                            android:textSize="14sp" />
+                            android:background="@drawable/badge_background"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="2dp"
+                            android:text="STUDENT"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
                     </LinearLayout>
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -418,7 +426,7 @@
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_food_bank_placeholder" 
                                 android:scaleType="centerInside"
-                                app:tint="?attr/colorPrimary"
+                                app:tint="#FF9800"
                                 android:background="?attr/colorSurfaceVariant"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -447,7 +455,7 @@
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_library" 
                                 android:scaleType="centerInside"
-                                app:tint="?attr/colorPrimary"
+                                app:tint="#2196F3"
                                 android:background="?attr/colorSurfaceVariant"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -476,7 +484,7 @@
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_bus_placeholder" 
                                 android:scaleType="centerInside"
-                                app:tint="?attr/colorPrimary"
+                                app:tint="#F44336"
                                 android:background="?attr/colorSurfaceVariant"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -505,7 +513,7 @@
                                 android:layout_height="80dp"
                                 android:src="@drawable/ic_search_placeholder" 
                                 android:scaleType="centerInside"
-                                app:tint="?attr/colorPrimary"
+                                app:tint="#9E9E9E"
                                 android:background="?attr/colorSurfaceVariant"/>
                             <TextView
                                 android:layout_width="match_parent"
@@ -561,7 +569,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_person_placeholder"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="#9C27B0" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -593,7 +601,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_map_placeholder"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="#4CAF50" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -624,7 +632,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_camera_placeholder"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="#D32F2F" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -658,7 +666,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_chat_placeholder"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="#00BCD4" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -692,7 +700,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_verified_placeholder"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="#FFC107" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -726,7 +734,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:src="@drawable/ic_admin_panel_settings"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="#607D8B" />
 
                         <TextView
                             android:layout_width="wrap_content"

@@ -57,7 +57,7 @@ public class PrefsManager {
     private static final String KEY_ONBOARDING_COMPLETE = "onboarding_complete";
 
     // Default Values
-    public static final String DEFAULT_BASE_URL = "http://192.168.0.122:5000/";
+    public static final String DEFAULT_BASE_URL = "http://192.168.0.106:5000/";
     public static final int DEFAULT_SESSION_TIMEOUT = 30; // minutes
     public static final String DEFAULT_LANGUAGE = "en";
 
@@ -360,5 +360,30 @@ public class PrefsManager {
 
     public void clearAll() {
         sharedPreferences.edit().clear().apply();
+    }
+
+    // ==================== OFFLINE CACHING ====================
+
+    public void saveCache(String key, Object object) {
+        if (object == null)
+            return;
+        String json = gson.toJson(object);
+        sharedPreferences.edit().putString("CACHE_" + key, json).apply();
+    }
+
+    public <T> T getCache(String key, Class<T> classOfT) {
+        String json = sharedPreferences.getString("CACHE_" + key, null);
+        if (json != null) {
+            try {
+                return gson.fromJson(json, classOfT);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public boolean hasCache(String key) {
+        return sharedPreferences.contains("CACHE_" + key);
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FAFAFA">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Results"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textColor="#333333"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0">
+
+            <!-- Header -->
+            <TableRow android:background="#673AB7" android:padding="12dp">
+                <TextView android:text="Course" android:textColor="#FFF" android:textStyle="bold" android:textSize="16sp"/>
+                <TextView android:text="Grade" android:textColor="#FFF" android:textStyle="bold" android:textSize="16sp" android:paddingStart="24dp"/>
+                <TextView android:text="GPA" android:textColor="#FFF" android:textStyle="bold" android:textSize="16sp" android:paddingStart="24dp"/>
+            </TableRow>
+
+            <!-- Data Rows (Mock) -->
+            <TableRow android:padding="12dp" android:background="#FFFFFF">
+                <TextView android:text="Data Structures" android:textColor="#333"/>
+                <TextView android:text="A" android:textColor="#4CAF50" android:textStyle="bold" android:paddingStart="24dp"/>
+                <TextView android:text="4.0" android:textColor="#333" android:paddingStart="24dp"/>
+            </TableRow>
+             <TableRow android:padding="12dp" android:background="#F5F5F5">
+                <TextView android:text="Linear Algebra" android:textColor="#333"/>
+                <TextView android:text="A-" android:textColor="#4CAF50" android:textStyle="bold" android:paddingStart="24dp"/>
+                <TextView android:text="3.7" android:textColor="#333" android:paddingStart="24dp"/>
+            </TableRow>
+             <TableRow android:padding="12dp" android:background="#FFFFFF">
+                <TextView android:text="Software Design" android:textColor="#333"/>
+                <TextView android:text="B+" android:textColor="#FF9800" android:textStyle="bold" android:paddingStart="24dp"/>
+                <TextView android:text="3.3" android:textColor="#333" android:paddingStart="24dp"/>
+            </TableRow>
+             <TableRow android:padding="12dp" android:background="#F5F5F5">
+                <TextView android:text="Database Systems" android:textColor="#333"/>
+                <TextView android:text="A" android:textColor="#4CAF50" android:textStyle="bold" android:paddingStart="24dp"/>
+                <TextView android:text="4.0" android:textColor="#333" android:paddingStart="24dp"/>
+            </TableRow>
+
+             <TableRow android:layout_marginTop="20dp">
+                 <TextView android:text="CGPA: 3.75" android:textSize="18sp" android:textStyle="bold" android:textColor="#673AB7"/>
+             </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

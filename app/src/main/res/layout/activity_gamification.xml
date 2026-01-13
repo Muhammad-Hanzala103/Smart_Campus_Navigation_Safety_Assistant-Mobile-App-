@@ -52,6 +52,77 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Daily Bonus"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <!-- Scratch Card Section -->
+    <FrameLayout
+        android:id="@+id/scratchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp">
+
+        <!-- Prize (Hidden Layer) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#C8E6C9">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:text="YOU WON!"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E7D32"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ 500 Points"
+                    android:textSize="18sp"
+                    android:textColor="#2E7D32"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Scratch Overlay (Top Layer) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/scratchOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#FFC107"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_star"
+                    app:tint="#FFFFFF"/>
+                <TextView
+                    android:text="TAP TO SCRATCH"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Challenges"
         android:layout_marginTop="24dp"
         android:textSize="18sp"
