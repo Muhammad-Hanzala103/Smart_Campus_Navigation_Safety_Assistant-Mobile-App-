@@ -48,14 +48,60 @@ public class CafeteriaActivity extends AppCompatActivity {
     }
 
     private void showOrderConfirmation() {
-        new AlertDialog.Builder(this)
-                .setTitle("Confirm Order")
-                .setMessage("Total Amount: PKR " + totalPrice + "\nPay via Digital Wallet?")
-                .setPositiveButton("Pay & Order", (dialog, which) -> {
-                    Toast.makeText(this, "Order Placed! Order ID: #CAFE-992", Toast.LENGTH_LONG).show();
-                    finish();
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
+        android.app.Dialog dialog = new android.app.Dialog(this);
+        dialog.setContentView(R.layout.dialog_payment);
+        dialog.getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        Button btnPay = dialog.findViewById(R.id.btnPayNow);
+        btnPay.setText("Pay PKR " + totalPrice);
+
+        btnPay.setOnClickListener(v -> {
+            // Prepare order data
+            java.util.Map<String, Object> order = new java.util.HashMap<>();
+            order.put("total_price", totalPrice);
+            java.util.List<java.util.Map<String, Object>> items = new java.util.ArrayList<>();
+            // Mock items for now as we don't have individual item tracking in this simple
+            // UI
+            java.util.Map<String, Object> item = new java.util.HashMap<>();
+            item.put("id", 1);
+            item.put("qty", itemCount);
+            items.add(item);
+            order.put("items", items);
+
+            // Send to API
+            com.example.cnsmsclient.network.ApiClient.getApiService(this).createOrder(order)
+                    .enqueue(new retrofit2.Callback<com.example.cnsmsclient.model.ServerResponse>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<com.example.cnsmsclient.model.ServerResponse> call,
+                                retrofit2.Response<com.example.cnsmsclient.model.ServerResponse> response) {
+                            dialog.dismiss();
+                            if (response.isSuccessful()) {
+                                Toast.makeText(CafeteriaActivity.this, "Payment Successful! Order Placed on Server.",
+                                        Toast.LENGTH_LONG).show();
+                                itemCount = 0;
+                                totalPrice = 0;
+                                updateCart();
+                            } else {
+                                Toast.makeText(CafeteriaActivity.this, "Server Error: Order Failed", Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<com.example.cnsmsclient.model.ServerResponse> call,
+                                Throwable t) {
+                            dialog.dismiss();
+                            Toast.makeText(CafeteriaActivity.this, "Network Error: " + t.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            // Fallback for demo
+                            itemCount = 0;
+                            totalPrice = 0;
+                            updateCart();
+                        }
+                    });
+        });
+
+        dialog.show();
     }
 }

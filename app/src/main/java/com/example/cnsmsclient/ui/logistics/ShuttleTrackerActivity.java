@@ -130,4 +130,17 @@ public class ShuttleTrackerActivity extends AppCompatActivity {
         String status = (String) shuttle.get("status");
         routesContainer.addView(createShuttleCard(name, route, status));
     }
+
+    private void showEmptyState() {
+        if (routesContainer != null) {
+            routesContainer.removeAllViews();
+            android.widget.TextView emptyView = new android.widget.TextView(this);
+            emptyView.setText("No shuttles active right now.");
+            emptyView.setTextSize(16);
+            emptyView.setTextColor(getResources().getColor(android.R.color.darker_gray));
+            emptyView.setGravity(android.view.Gravity.CENTER);
+            emptyView.setPadding(32, 32, 32, 32);
+            routesContainer.addView(emptyView);
+        }
+    }
 }

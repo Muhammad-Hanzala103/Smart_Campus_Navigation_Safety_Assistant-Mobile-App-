@@ -118,6 +118,20 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Fake Call Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFakeCall"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Simulate Fake Call"
+        android:textColor="#1565C0"
+        app:strokeColor="#1565C0"
+        app:icon="@drawable/ic_phone"
+        app:iconGravity="textStart"
+        app:iconTint="#1565C0"/>
+
     <!-- Panic Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPanic"

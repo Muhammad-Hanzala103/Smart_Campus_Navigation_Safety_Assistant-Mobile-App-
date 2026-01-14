@@ -275,7 +275,24 @@ public interface ApiService {
         @POST("api/chat/send")
         Call<ServerResponse> sendChatMessage(@Body Map<String, Object> message);
 
+        // ==================== CAFETERIA ====================
+        @GET("api/cafeteria/menu")
+        Call<List<Map<String, Object>>> getCafeteriaMenu();
+
+        @POST("api/cafeteria/order")
+        Call<ServerResponse> createOrder(@Body Map<String, Object> orderData);
+
         // ==================== SETTINGS ====================
+
+        // ==================== ACADEMIC ====================
+        @GET("api/academic/results")
+        Call<Map<String, Object>> getAcademicResults();
+
+        @GET("api/academic/attendance")
+        Call<Map<String, Object>> getAttendance();
+
+        @GET("api/academic/seat")
+        Call<List<Map<String, Object>>> getExamSeats();
 
         @GET("api/settings/preferences")
         Call<Map<String, Object>> getUserPreferences();

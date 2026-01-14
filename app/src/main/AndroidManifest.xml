@@ -73,6 +73,9 @@
         <activity android:name=".ui.academic.AcademicDashboardActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity android:name=".ui.academic.AttendanceActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
         <activity android:name=".ui.academic.SeatingPlanActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.academic.AcademicResultsActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.academic.CoursesActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        <activity android:name=".ui.safety.FakeCallActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
 
         <!-- Financial Management -->
         <activity android:name=".ui.financial.FinancialDashboardActivity" android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
