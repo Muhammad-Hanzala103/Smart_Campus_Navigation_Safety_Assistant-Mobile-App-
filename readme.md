@@ -1,44 +1,51 @@
-# Smart Campus Navigation Safety Assistant (CNSMS-Android)
+# CIIAS - Smart Campus Navigation & Safety Assistant (Android App)
 
-## Introduction
+![Platform](https://img.shields.io/badge/Platform-Android-green?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
+![Author](https://img.shields.io/badge/Author-Muhammad_Hanzala-orange?style=for-the-badge)
 
-The Smart Campus Navigation Safety Assistant is an Android application designed to enhance the safety and navigation experience for students and staff on a university campus. The app provides features for user authentication, incident reporting, and accessing campus services like shuttle information.
+> **"Your Smart Campus Companion in Your Pocket."**
 
-## Features
+## 📱 Overview
 
-*   **User Authentication:** Secure login, registration, and password recovery for personalized access.
-*   **Incident Reporting:** Allows users to report incidents on campus, contributing to a safer environment.
-*   **QR Code Integration:** Utilizes QR code scanning for various campus-related interactions.
-*   **Shuttle Information:** Provides details about campus shuttle services.
-*   **Navigation:** Helps users navigate the campus.
+The **CIIAS Android Application** is the student-facing mobile interface of the Smart Campus Ecosystem. Built with native Android technologies, it provides students with AR Navigation, Safety Tools, and Academic resources on the go.
 
-## Tech Stack
+## ✨ Key Features (Ultimate Edition)
 
-*   **Language:** Java
-*   **UI:** Android XML with Material Design Components
-*   **Networking:**
-    *   Retrofit: For making HTTP requests to the backend API.
-    *   Gson: for serializing and deserializing JSON data.
-*   **Image Loading:**
-    *   Glide: For efficient loading and caching of images.
-*   **QR Code Scanning:**
-    *   ZXing (Zebra Crossing): Integrated via `journeyapps/zxing-android-embedded`.
+### 📍 Navigation & Reality
+*   **AR Campus Guide:** Augmented Reality navigation to find classrooms, labs, and faculty offices.
+*   **Live Shuttle Tracker:** Real-time GPS tracking of campus shuttles.
 
-## Getting Started
+### 🚨 Personal Safety
+*   **One-Tap SOS:** Instantly alert security and emergency contacts with live location.
+*   **Incident Reporting:** Report hazards (Fire, Medical, Suspicious Activity) with photo evidence.
 
-To get a local copy up and running, follow these simple steps.
+### 🎓 Student Success
+*   **Academic Dashboard:** View grades, attendance, and exam schedules instantly.
+*   **Digital Wallet:** Manage campus funds and pay for cafeteria orders.
+*   **QR Attendance:** Contactless attendance marking.
 
-### Prerequisites
+## 🛠️ Tech Stack
 
-*   Android Studio
-*   An Android device or emulator
+*   **Language:** Java / Kotlin
+*   **Architecture:** MVVM (Model-View-ViewModel)
+*   **Networking:** Retrofit 2
+*   **Maps:** Google Maps SDK + ARCore
+*   **Real-time:** Socket.IO Client
+*   **UI:** Material Design 3
 
-### Installation
+## 🚀 Setup & Build
 
-1.  Clone the repo
-    ```sh
-    git clone https://example.com/your_project_repo.git
+1.  **Prerequisites:** Android Studio iguan (or later), JDK 17.
+2.  **Clone Repository:**
+    ```bash
+    git clone https://github.com/Muhammad-Hanzala103/Smart_Campus_Navigation_Safety_Assistan.git
     ```
-2.  Open the project in Android Studio.
-3.  Build the project. Gradle will automatically download the necessary dependencies.
-4.  Run the application on an Android device or emulator.
+3.  **Configuration:**
+    *   Add your `google-services.json` to `app/`.
+    *   Sync Gradle.
+4.  **Run:** Build and run on Emulator or Physical Device.
+
+---
+**© 2026 Muhammad Hanzala. All Rights Reserved.**
+*Engineered for Industrial Excellence.*

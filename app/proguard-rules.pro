@@ -19,3 +19,23 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Retrofit
+-keepattributes Signature, InnerClasses, AnnotationDefault
+-keep class retrofit2.** { *; }
+-keep interface retrofit2.** { *; }
+
+# Gson
+-keep class com.google.gson.** { *; }
+-keep class com.example.cnsmsclient.models.** { *; }
+
+# Glide
+-keep public class * extends com.github.bumptech.glide.module.AppGlideModule
+-keep public class * extends com.github.bumptech.glide.module.LibraryGlideModule
+-keep class com.github.bumptech.glide.** { *; }
+
+# Lottie
+-keep class com.airbnb.lottie.** { *; }
+
+# Socket.IO
+-keep class io.socket.** { *; }
