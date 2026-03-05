@@ -33,6 +33,7 @@ public class IncidentsFragment extends Fragment implements IncidentsAdapter.Inci
     private PrefsManager prefsManager;
     private IncidentsAdapter adapter;
     private List<Incident> incidents = new ArrayList<>();
+    private Call<List<Incident>> currentCall;
 
     @Nullable
     @Override
@@ -55,6 +56,7 @@ public class IncidentsFragment extends Fragment implements IncidentsAdapter.Inci
     }
 
     private void setupRecyclerView() {
+        if (binding == null) return;
         adapter = new IncidentsAdapter(incidents, this);
         adapter.setBaseUrl(prefsManager.getBaseUrl());
         binding.incidentsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -62,16 +64,24 @@ public class IncidentsFragment extends Fragment implements IncidentsAdapter.Inci
     }
 
     private void setupSwipeRefresh() {
+        if (binding == null) return;
         binding.swipeRefresh.setColorSchemeResources(R.color.md_theme_light_primary);
         binding.swipeRefresh.setOnRefreshListener(this::fetchIncidents);
     }
 
     private void fetchIncidents() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
+        
         showLoading(true);
 
-        apiService.getIncidents().enqueue(new Callback<List<Incident>>() {
+        currentCall = apiService.getIncidents();
+        currentCall.enqueue(new Callback<List<Incident>>() {
             @Override
             public void onResponse(Call<List<Incident>> call, Response<List<Incident>> response) {
+                if (binding == null) return;
+                
                 showLoading(false);
                 binding.swipeRefresh.setRefreshing(false);
 
@@ -88,12 +98,14 @@ public class IncidentsFragment extends Fragment implements IncidentsAdapter.Inci
                     binding.incidentCount.setText(incidents.size() + " incidents");
                     binding.incidentCount.setVisibility(View.VISIBLE);
                 } else {
-                    showError("Failed to load incidents");
+                    showError("Failed to load incidents: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Incident>> call, Throwable t) {
+                if (binding == null || call.isCanceled()) return;
+                
                 showLoading(false);
                 binding.swipeRefresh.setRefreshing(false);
 
@@ -109,23 +121,29 @@ public class IncidentsFragment extends Fragment implements IncidentsAdapter.Inci
 
     @Override
     public void onIncidentClick(Incident incident, int position) {
-        // Navigate to incident detail activity
-        // TODO: Implement IncidentDetailActivity
+        if (binding == null) return;
         Snackbar.make(binding.getRoot(), "Incident: " + incident.description, Snackbar.LENGTH_SHORT).show();
     }
 
     private void showLoading(boolean show) {
-        binding.progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (binding != null && binding.progressBar != null) {
+            binding.progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
     }
 
     private void showError(String message) {
-        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG)
-                .setBackgroundTint(requireContext().getColor(R.color.md_theme_light_error))
-                .show();
+        if (binding != null && getContext() != null) {
+            Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(requireContext().getColor(R.color.md_theme_light_error))
+                    .show();
+        }
     }
 
     @Override
     public void onDestroyView() {
+        if (currentCall != null) {
+            currentCall.cancel();
+        }
         super.onDestroyView();
         binding = null;
     }
